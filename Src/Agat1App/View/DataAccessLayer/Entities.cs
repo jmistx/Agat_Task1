@@ -10,6 +10,14 @@ namespace View.DataAccessLayer
 {
     public class Entities : DbContext, IDataContext {
         public DbSet<User> Users { get; set; }
+        public void AddUser(User user) {
+            Users.Add(user);
+        }
+
+        void IDataContext.SaveChanges()
+        {
+            SaveChanges();
+        }
 
         IQueryable<User> IDataContext.Users {
             get { return Users; }

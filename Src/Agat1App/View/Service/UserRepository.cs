@@ -17,5 +17,14 @@ namespace View.Service {
                 return dataContext.Users.ToList();    
             }
         }
+
+        public void Save(User user) {
+            using (var dataContext = _dataContextFactory.Create()) {
+                if (user.Id == 0) {
+                    dataContext.AddUser(user);
+                }
+                dataContext.SaveChanges();
+            }
+        }
     }
 }

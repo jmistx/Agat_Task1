@@ -19,9 +19,15 @@ namespace View.Controllers
             var users = UserService.GetAllUsers();
             return View(users);
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-        public ActionResult Create() {
-            throw new NotImplementedException();
+        [HttpPost]
+        public ActionResult Create(UserViewModel vm) {
+            UserService.Save(vm);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id) {
