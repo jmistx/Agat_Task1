@@ -4,7 +4,7 @@ using View.ViewModels;
 namespace View.Service {
     public interface IUserService {
         IList<UserViewModel> GetAllUsers();
-        void Save(UserViewModel vm);
+        UserViewModel Save(UserViewModel vm);
         UserViewModel GetUser(int id);
     }
 }

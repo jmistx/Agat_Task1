@@ -18,12 +18,18 @@ namespace View.Service {
             }
         }
 
-        public void Save(User user) {
+        public User Save(User user) {
             using (var dataContext = _dataContextFactory.Create()) {
                 if (user.Id == 0) {
                     dataContext.AddUser(user);
                 }
+                else {
+                    var dbUser = dataContext.Users.Single(_ => _.Id == user.Id);
+                    dbUser.FirstName = user.FirstName;
+                    dbUser.LastName = user.LastName;
+                }
                 dataContext.SaveChanges();
+                return user;
             }
         }
 

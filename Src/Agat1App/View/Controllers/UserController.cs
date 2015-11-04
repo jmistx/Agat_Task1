@@ -35,6 +35,13 @@ namespace View.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        public ActionResult Edit(UserViewModel vm)
+        {
+            var user = UserService.Save(vm);
+            return View(user);
+        }
+
         public ActionResult Delete(int id) {
             throw new NotImplementedException();
         }

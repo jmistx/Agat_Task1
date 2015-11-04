@@ -17,9 +17,10 @@ namespace View.Service {
             return users.Select(toViewModel).ToList();
         }
 
-        public void Save(UserViewModel vm) {
-            var user = toModel(vm);
-            _userRepository.Save(user);
+        public UserViewModel Save(UserViewModel vm)
+        {
+            var savedUser = _userRepository.Save(toModel(vm));
+            return toViewModel(savedUser);
         }
 
         public UserViewModel GetUser(int id) {
@@ -30,7 +31,8 @@ namespace View.Service {
             return new User {
                 Address = new Address(),
                 FirstName = vm.FirstName,
-                LastName = vm.LastName
+                LastName = vm.LastName,
+                Id = vm.Id
             };
         }
 
