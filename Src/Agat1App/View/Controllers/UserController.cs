@@ -31,7 +31,8 @@ namespace View.Controllers
         }
 
         public ActionResult Edit(int id) {
-            throw new NotImplementedException();
+            var user = UserService.GetUser(id);
+            return View(user);
         }
 
         public ActionResult Delete(int id) {

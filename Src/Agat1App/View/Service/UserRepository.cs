@@ -26,5 +26,11 @@ namespace View.Service {
                 dataContext.SaveChanges();
             }
         }
+
+        public User Get(int id) {
+            using (var dataContext = _dataContextFactory.Create()) {
+                return dataContext.Users.FirstOrDefault(_ => _.Id == id);
+            }
+        }
     }
 }

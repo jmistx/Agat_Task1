@@ -5,5 +5,6 @@ namespace View.Service {
     public interface IUserRepository {
         IList<User> GetUsers();
         void Save(User user);
+        User Get(int id);
     }
 }
