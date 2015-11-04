@@ -99,6 +99,10 @@
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IUserRepository.cs" />
+    <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\UserRepository.cs" />
+    <Compile Include="Service\UserService.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
