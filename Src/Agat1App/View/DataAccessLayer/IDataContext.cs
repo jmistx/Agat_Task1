@@ -7,5 +7,6 @@ namespace View.DataAccessLayer {
         IQueryable<User> Users { get; }
         void AddUser(User user);
         void SaveChanges();
+        void DeleteUser(User user);
     }
 }

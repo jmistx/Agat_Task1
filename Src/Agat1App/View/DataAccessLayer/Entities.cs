@@ -19,6 +19,10 @@ namespace View.DataAccessLayer
             SaveChanges();
         }
 
+        public void DeleteUser(User user) {
+            Users.Remove(user);
+        }
+
         IQueryable<User> IDataContext.Users {
             get { return Users; }
         }

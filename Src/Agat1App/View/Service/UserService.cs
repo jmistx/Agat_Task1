@@ -27,6 +27,10 @@ namespace View.Service {
             return toViewModel(_userRepository.Get(id));
         }
 
+        public void Delete(int id) {
+            _userRepository.Delete(id);
+        }
+
         private User toModel(UserViewModel vm) {
             return new User {
                 Address = new Address(),

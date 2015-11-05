@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using View.DataAccessLayer;
 using View.Service;
 using View.ViewModels;
@@ -43,7 +44,8 @@ namespace View.Controllers
         }
 
         public ActionResult Delete(int id) {
-            throw new NotImplementedException();
+            UserService.Delete(id);
+            return RedirectToAction("Index");
         }
 
         public IUserService UserService;

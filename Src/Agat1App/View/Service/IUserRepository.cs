@@ -6,5 +6,6 @@ namespace View.Service {
         IList<User> GetUsers();
         User Save(User user);
         User Get(int id);
+        void Delete(int id);
     }
 }

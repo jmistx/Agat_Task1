@@ -24,7 +24,7 @@ namespace View.Service {
                     dataContext.AddUser(user);
                 }
                 else {
-                    var dbUser = dataContext.Users.Single(_ => _.Id == user.Id);
+                    var dbUser = Get(dataContext,user.Id);
                     dbUser.FirstName = user.FirstName;
                     dbUser.LastName = user.LastName;
                 }
@@ -35,8 +35,20 @@ namespace View.Service {
 
         public User Get(int id) {
             using (var dataContext = _dataContextFactory.Create()) {
-                return dataContext.Users.FirstOrDefault(_ => _.Id == id);
+                return Get(dataContext, id);
             }
+        }
+
+        public void Delete(int id) {
+            using (var dataContext = _dataContextFactory.Create()) {
+                var user = Get(dataContext, id);
+                dataContext.DeleteUser(user);
+                dataContext.SaveChanges();
+            }
+        }
+
+        private static User Get(IDataContext dataContext, int id) {
+            return dataContext.Users.Single(_ => _.Id == id);
         }
     }
 }
