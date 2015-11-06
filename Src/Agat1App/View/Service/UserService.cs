@@ -32,8 +32,15 @@ namespace View.Service {
         }
 
         private User toModel(UserViewModel vm) {
+            
+            var address = new Address();
+            if (vm.Address != null) {
+                address.Id = vm.Address.Id;
+                address.City = vm.Address.City;
+            }
+
             return new User {
-                Address = new Address(),
+                Address = address,
                 FirstName = vm.FirstName,
                 LastName = vm.LastName,
                 Id = vm.Id
@@ -45,8 +52,15 @@ namespace View.Service {
                 throw new NullReferenceException();
             }
 
+            var address = new AddressViewModel();
+
+            if (user.Address != null) {
+                address.Id = user.Address.Id;
+                address.City = user.Address.City;
+            }
+
             return new UserViewModel {
-                Address = new AddressViewModel(),
+                Address = address,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Id = user.Id

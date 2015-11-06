@@ -8,5 +8,6 @@ namespace View.DataAccessLayer {
         void AddUser(User user);
         void SaveChanges();
         void DeleteUser(User user);
+        void UpdateUser(User user);
     }
 }

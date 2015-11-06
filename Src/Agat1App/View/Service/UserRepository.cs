@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using View.DataAccessLayer;
 using View.Models;
@@ -14,7 +15,7 @@ namespace View.Service {
         public IList<User> GetUsers() {
             using (var dataContext = _dataContextFactory.Create())
             {
-                return dataContext.Users.ToList();    
+                return dataContext.Users.Include(_ => _.Address).ToList();    
             }
         }
 
@@ -24,10 +25,9 @@ namespace View.Service {
                     dataContext.AddUser(user);
                 }
                 else {
-                    var dbUser = Get(dataContext,user.Id);
-                    dbUser.FirstName = user.FirstName;
-                    dbUser.LastName = user.LastName;
+                    dataContext.UpdateUser(user);
                 }
+
                 dataContext.SaveChanges();
                 return user;
             }
@@ -48,7 +48,7 @@ namespace View.Service {
         }
 
         private static User Get(IDataContext dataContext, int id) {
-            return dataContext.Users.Single(_ => _.Id == id);
+            return dataContext.Users.Where(_ => _.Id == id).Include(_ => _.Address).Single();
         }
     }
 }

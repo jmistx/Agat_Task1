@@ -9,10 +9,15 @@ using View.Models;
 namespace View.DataAccessLayer
 {
     public class Entities : DbContext, IDataContext {
+        public Entities(string connectionString):base(connectionString) {
+        }
+
         public DbSet<User> Users { get; set; }
-        public DbSet<Address> Adresses { get; set; }
-        public void AddUser(User user) {
-            Users.Add(user);
+
+        public DbSet<Address> Addresses { get; set; }
+
+        IQueryable<User> IDataContext.Users {
+            get { return Users; }
         }
 
         void IDataContext.SaveChanges()
@@ -20,18 +25,35 @@ namespace View.DataAccessLayer
             SaveChanges();
         }
 
-        public void DeleteUser(User user) {
+        void IDataContext.AddUser(User user)
+        {
+            Users.Add(user);
+        }
+
+        void IDataContext.DeleteUser(User user)
+        {
             if (user.Address != null) {
-                Adresses.Remove(user.Address);    
+                Addresses.Remove(user.Address);    
             }
             Users.Remove(user);
         }
 
-        IQueryable<User> IDataContext.Users {
-            get { return Users; }
+        void IDataContext.UpdateUser(User user)
+        {
+            Attach(user);
+            Attach(user.Address);
         }
 
-        public Entities(string connectionString):base(connectionString) {
+        private void Attach(User user)
+        {
+            Users.Attach(user);
+            Entry(user).State = EntityState.Modified;
+        }
+
+        private void Attach(Address address)
+        {
+            Addresses.Attach(address);
+            Entry(address).State = EntityState.Modified;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
