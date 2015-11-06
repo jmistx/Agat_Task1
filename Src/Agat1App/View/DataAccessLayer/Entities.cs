@@ -21,7 +21,9 @@ namespace View.DataAccessLayer
         }
 
         public void DeleteUser(User user) {
-            Adresses.Remove(user.Address);
+            if (user.Address != null) {
+                Adresses.Remove(user.Address);    
+            }
             Users.Remove(user);
         }
 
@@ -44,7 +46,7 @@ namespace View.DataAccessLayer
 
             modelBuilder.Entity<User>()
                 .HasKey(_ => _.Id)
-                .HasOptional(_ => _.Address).WithRequired().Map(_ => _.MapKey("User")).WillCascadeOnDelete();
+                .HasOptional(_ => _.Address).WithRequired().Map(_ => _.MapKey("User")).WillCascadeOnDelete(true);
         }
     }
 }
