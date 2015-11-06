@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using View.DataAccessLayer;
+using View.Service;
 using View.ViewModels;
 
-namespace View.Controllers
-{
-    public class RequestController : Controller
-    {
-        public ActionResult Index()
-        {
-            IList<RequestViewModel> requests = new List<RequestViewModel>();
-            return View(requests);
+namespace View.Controllers {
+    public class RequestController : Controller {
+        private readonly IRequestService service;
+
+        public RequestController() {
+            service = new RequestService(new RequestsRepository(new DataContextFactory()));
+        }
+        public ActionResult Index() {
+            return View(service.GetAll());
         }
 
         public ActionResult Create() {

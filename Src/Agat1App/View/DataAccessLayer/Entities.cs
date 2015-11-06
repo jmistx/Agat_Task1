@@ -14,7 +14,12 @@ namespace View.DataAccessLayer
 
         public DbSet<User> Users { get; set; }
 
+        IQueryable<Request> IDataContext.Requests {
+            get { return Requests; }
+        }
+
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         IQueryable<User> IDataContext.Users {
             get { return Users; }
@@ -69,6 +74,12 @@ namespace View.DataAccessLayer
             modelBuilder.Entity<User>()
                 .HasKey(_ => _.Id)
                 .HasOptional(_ => _.Address).WithRequired().Map(_ => _.MapKey("User")).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Request>()
+                .HasKey(_ => _.Id)
+                .Ignore(_ => _.Author)
+                .Ignore(_ => _.DateCreate)
+                .Ignore(_ => _.Description);
         }
     }
 }
