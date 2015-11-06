@@ -10,6 +10,7 @@ namespace View.DataAccessLayer
 {
     public class Entities : DbContext, IDataContext {
         public DbSet<User> Users { get; set; }
+        public DbSet<Address> Adresses { get; set; }
         public void AddUser(User user) {
             Users.Add(user);
         }
@@ -20,6 +21,7 @@ namespace View.DataAccessLayer
         }
 
         public void DeleteUser(User user) {
+            Adresses.Remove(user.Address);
             Users.Remove(user);
         }
 
@@ -32,9 +34,17 @@ namespace View.DataAccessLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Address>()
+                .HasKey(_ => _.Id)
+                .Ignore(_ => _.Street)
+                .Ignore(_ => _.BuildingNumber)
+                .Ignore(_ => _.ApartmentNumber);
+
+
             modelBuilder.Entity<User>()
                 .HasKey(_ => _.Id)
-                .Ignore(_ => _.Address);
+                .HasOptional(_ => _.Address).WithRequired().Map(_ => _.MapKey("User")).WillCascadeOnDelete();
         }
     }
 }
