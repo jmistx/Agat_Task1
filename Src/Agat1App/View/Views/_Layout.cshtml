@@ -7,9 +7,15 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
 </head>
-<body>
-    <div class="container">
-        @RenderBody()
-    </div>
-</body>
+    <body>
+        <div class="container">
+            <div class="navbar navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Users", "Index", "User")</li>
+                    <li>@Html.ActionLink("Requests", "Index", "Request")</li>
+                </ul>
+            </div>
+            @RenderBody()
+        </div>
+    </body>
 </html>
