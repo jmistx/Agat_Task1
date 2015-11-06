@@ -61,10 +61,10 @@ namespace View.DataAccessLayer
 
             modelBuilder.Entity<Address>()
                 .HasKey(_ => _.Id)
-                .Ignore(_ => _.Street)
-                .Ignore(_ => _.BuildingNumber)
-                .Ignore(_ => _.ApartmentNumber);
+                .Property(_ => _.BuildingNumber).HasColumnName("BuildingNum");
 
+            modelBuilder.Entity<Address>()
+                .Property(_ => _.ApartmentNumber).HasColumnName("ApartmentNum");
 
             modelBuilder.Entity<User>()
                 .HasKey(_ => _.Id)

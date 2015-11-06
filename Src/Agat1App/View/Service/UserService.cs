@@ -37,6 +37,9 @@ namespace View.Service {
             if (vm.Address != null) {
                 address.Id = vm.Address.Id;
                 address.City = vm.Address.City;
+                address.Street = vm.Address.Street;
+                address.BuildingNumber = vm.Address.BuildingNumber;
+                address.ApartmentNumber = vm.Address.ApartmentNumber;
             }
 
             return new User {
@@ -57,6 +60,9 @@ namespace View.Service {
             if (user.Address != null) {
                 address.Id = user.Address.Id;
                 address.City = user.Address.City;
+                address.Street = user.Address.Street;
+                address.BuildingNumber = user.Address.BuildingNumber;
+                address.ApartmentNumber = user.Address.ApartmentNumber;
             }
 
             return new UserViewModel {
