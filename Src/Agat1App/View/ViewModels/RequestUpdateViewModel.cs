@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace View.ViewModels {
-    public class RequestCreateViewModel : IHasUserCollection {
+    public class RequestUpdateViewModel : IHasUserCollection {
         public IList<AuthorViewModel> Users { get; set; }
         public int Id { get; set; }
         [Required]

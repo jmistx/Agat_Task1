@@ -60,6 +60,13 @@ namespace View.DataAccessLayer
             Requests.Remove(request);
         }
 
+        public void UpdateRequest(Request request) {
+            Users.Attach(request.Author);
+            Requests.Attach(request);
+            Entry(request).State = EntityState.Modified;
+            Entry(request).Property(_ => _.DateCreated).IsModified = false;
+        }
+
         private void Attach(User user)
         {
             Users.Attach(user);

@@ -6,13 +6,6 @@ using View.Models;
 using View.ViewModels;
 
 namespace View.Service {
-    public interface IRequestService {
-        IList<RequestViewModel> GetAll();
-        RequestCreateViewModel CreateRequest();
-        void CreateRequest(RequestCreateViewModel vm);
-        void DeleteRequest(int id);
-    }
-
     public class RequestService : IRequestService {
         private readonly IRequestRepository _requestsRepository;
         private readonly IUserRepository _userRepository;
@@ -46,6 +39,29 @@ namespace View.Service {
             _requestsRepository.Delete(id);
         }
 
+        public RequestCreateViewModel UpdateRequest(int id)
+        {
+            var request = _requestsRepository.Get(id);
+            return _toCreateViewModel(request);
+        }
+
+        public RequestCreateViewModel CreateRequestRenew(RequestCreateViewModel vm) {
+            return _setUsersCollection(vm);
+        }
+
+        public RequestCreateViewModel UpdateRequest(RequestCreateViewModel vm)
+        {
+            var request = _toModel(vm);
+            var savedRequest = _requestsRepository.Save(request);
+            return _toCreateViewModel(savedRequest);
+        }
+
+        private T _setUsersCollection<T>(T vm) where T : IHasUserCollection {
+            var users = _userRepository.GetUsers();
+            vm.Users = users.Select(_toViewModel).ToList();
+            return vm;
+        }
+
         private Request _toModel(RequestCreateViewModel vm) {
             var author = _userRepository.Get(vm.Author.Id);
 
@@ -54,7 +70,19 @@ namespace View.Service {
                 Author = author,
                 Description = vm.Description
             };
+        }
 
+        private RequestCreateViewModel _toCreateViewModel(Request request)
+        {
+            var requestUpdateViewModel = new RequestCreateViewModel
+            {
+                Id = request.Id,
+                Author = _toViewModel(request.Author),
+                DateCreated = request.DateCreated.ToString("g"),
+                Description = request.Description,
+            };
+            _setUsersCollection(requestUpdateViewModel);
+            return requestUpdateViewModel;
         }
 
         private RequestViewModel _toViewModel(Request request)

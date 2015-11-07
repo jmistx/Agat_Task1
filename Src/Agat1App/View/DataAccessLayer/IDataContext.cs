@@ -12,5 +12,6 @@ namespace View.DataAccessLayer {
         void UpdateUser(User user);
         void CreateRequest(Request request);
         void DeleteRequest(Request request);
+        void UpdateRequest(Request request);
     }
 }

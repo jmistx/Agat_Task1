@@ -24,12 +24,25 @@ namespace View.Controllers {
 
         [HttpPost]
         public ActionResult Create(RequestCreateViewModel vm) {
-            service.CreateRequest(vm);  
-            return RedirectToAction("Index");
+            if (ModelState.IsValid) {
+                service.CreateRequest(vm);
+                return RedirectToAction("Index");
+            }
+            else {
+                return View(service.CreateRequestRenew(vm));
+            }
         }
 
         public ActionResult Edit(int id) {
-            throw new NotImplementedException();
+            var requestViewModel = service.UpdateRequest(id);
+            return View(requestViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(RequestCreateViewModel vm)
+        {
+            var requestViewModel = service.UpdateRequest(vm);
+            return View(requestViewModel);
         }
 
         public ActionResult Delete(int id) {
