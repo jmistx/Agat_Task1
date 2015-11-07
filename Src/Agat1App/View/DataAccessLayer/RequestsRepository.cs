@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using View.Models;
 
@@ -13,7 +14,7 @@ namespace View.DataAccessLayer {
 
         public IList<Request> GetAll() {
             using (var dataContext = _dataContextFactory.Create()) {
-                return dataContext.Requests.ToList();
+                return dataContext.Requests.Include(_ => _.Author).ToList();
             }
         }
 

@@ -23,7 +23,7 @@ namespace View.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Create(CreateRequestViewModel vm) {
+        public ActionResult Create(RequestCreateViewModel vm) {
             service.CreateRequest(vm);  
             return RedirectToAction("Index");
         }

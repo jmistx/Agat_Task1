@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Author.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateCreated)
@@ -24,7 +24,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Author.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateCreated)

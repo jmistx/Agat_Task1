@@ -8,8 +8,8 @@ using View.ViewModels;
 namespace View.Service {
     public interface IRequestService {
         IList<RequestViewModel> GetAll();
-        CreateRequestViewModel CreateRequest();
-        void CreateRequest(CreateRequestViewModel vm);
+        RequestCreateViewModel CreateRequest();
+        void CreateRequest(RequestCreateViewModel vm);
     }
 
     public class RequestService : IRequestService {
@@ -26,22 +26,22 @@ namespace View.Service {
             return requests.Select(toViewModel).ToList();
         }
 
-        public CreateRequestViewModel CreateRequest() {
+        public RequestCreateViewModel CreateRequest() {
             var users = _userRepository.GetUsers();
 
-            return new CreateRequestViewModel() {
+            return new RequestCreateViewModel() {
                 Users = users.Select(toViewModel).ToList(),
-                Author = new RequestUserViewModel()
+                Author = new AuthorViewModel()
             };
         }
 
-        public void CreateRequest(CreateRequestViewModel vm) {
+        public void CreateRequest(RequestCreateViewModel vm) {
             var request = _toModel(vm);
             request.DateCreated = DateTime.UtcNow;
             _requestsRepository.Save(request);
         }
 
-        private Request _toModel(CreateRequestViewModel vm) {
+        private Request _toModel(RequestCreateViewModel vm) {
             var author = _userRepository.Get(vm.Author.Id);
 
             return new Request {
@@ -54,11 +54,16 @@ namespace View.Service {
 
         private RequestViewModel toViewModel(Request request)
         {
-            return new RequestViewModel();
+            return new RequestViewModel {
+                Author = toViewModel(request.Author),
+                DateCreated = request.DateCreated.ToString("g")
+            };
         }
 
-        private RequestUserViewModel toViewModel(User user) {
-            return new RequestUserViewModel {
+        private AuthorViewModel toViewModel(User user)
+        {
+            return new AuthorViewModel
+            {
                 Id = user.Id,
                 Name = String.Format("{0} {1}", user.FirstName, user.LastName)
             };
