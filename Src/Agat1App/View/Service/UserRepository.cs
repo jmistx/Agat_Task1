@@ -42,6 +42,13 @@ namespace View.Service {
         public void Delete(int id) {
             using (var dataContext = _dataContextFactory.Create()) {
                 var user = Get(dataContext, id);
+                var requests = user.Requests.ToList();
+
+                foreach (var request in requests)
+                {
+                    dataContext.DeleteRequest(request);
+                }
+
                 dataContext.DeleteUser(user);
                 dataContext.SaveChanges();
             }

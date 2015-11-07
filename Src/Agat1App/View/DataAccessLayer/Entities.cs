@@ -56,6 +56,10 @@ namespace View.DataAccessLayer
             Requests.Add(request);
         }
 
+        void IDataContext.DeleteRequest(Request request) {
+            Requests.Remove(request);
+        }
+
         private void Attach(User user)
         {
             Users.Attach(user);
