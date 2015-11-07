@@ -1,18 +1,16 @@
 ﻿@model View.ViewModels.UserViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create user";
     Layout = "~/Views/_Layout.cshtml";
 }
-
-<h2>Create</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserViewModel</h4>
+        <h4>Create user</h4>
         <hr />
         @Html.ValidationSummary(true)
 

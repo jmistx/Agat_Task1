@@ -56,7 +56,8 @@ namespace View.Service {
             return _toCreateViewModel(savedRequest);
         }
 
-        private T _setUsersCollection<T>(T vm) where T : IHasUserCollection {
+        private RequestCreateViewModel _setUsersCollection(RequestCreateViewModel vm)
+        {
             var users = _userRepository.GetUsers();
             vm.Users = users.Select(_toViewModel).ToList();
             return vm;

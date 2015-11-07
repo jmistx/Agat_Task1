@@ -112,6 +112,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\agat-interview - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\agat-interview - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -153,9 +155,7 @@
     <Compile Include="Service\UserService.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
-    <Compile Include="ViewModels\IHasUserCollection.cs" />
     <Compile Include="ViewModels\RequestCreateViewModel.cs" />
-    <Compile Include="ViewModels\RequestUpdateViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

@@ -1,24 +1,22 @@
 ﻿@model View.ViewModels.RequestCreateViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit request";
     Layout = "~/Views/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RequestUpdateViewModel</h4>
+        <h4>Edit Request</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Author.Id, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Author, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Author.Id, new SelectList(Model.Users, "Id", "Name"))
             </div>

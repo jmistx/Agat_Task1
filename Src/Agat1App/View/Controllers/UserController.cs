@@ -27,8 +27,8 @@ namespace View.Controllers
 
         [HttpPost]
         public ActionResult Create(UserViewModel vm) {
-            UserService.Save(vm);
-            return RedirectToAction("Index");
+            var savedUser = UserService.Save(vm);
+            return RedirectToAction("Edit", new {id = savedUser.Id});
         }
 
         public ActionResult Edit(int id) {

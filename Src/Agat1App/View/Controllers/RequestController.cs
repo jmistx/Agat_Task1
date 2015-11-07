@@ -26,7 +26,7 @@ namespace View.Controllers {
         public ActionResult Create(RequestCreateViewModel vm) {
             if (ModelState.IsValid) {
                 service.CreateRequest(vm);
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
             else {
                 return View(service.CreateRequestRenew(vm));

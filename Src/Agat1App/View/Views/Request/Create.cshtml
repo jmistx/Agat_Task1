@@ -1,18 +1,16 @@
 ﻿@model View.ViewModels.RequestCreateViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create request";
     Layout = "~/Views/_Layout.cshtml";
 }
-
-<h2>Create</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CreateRequestViewModel</h4>
+        <h4>Create Request</h4>
         <hr />
         @Html.ValidationSummary(true)
         

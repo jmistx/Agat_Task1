@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using System.Web;
 using View.Models;
 
-namespace View.DataAccessLayer
-{
+namespace View.DataAccessLayer {
     public class Entities : DbContext, IDataContext {
-        public Entities(string connectionString):base(connectionString) {
+        public Entities(string connectionString) : base(connectionString) {
         }
 
         public DbSet<User> Users { get; set; }
@@ -26,32 +23,27 @@ namespace View.DataAccessLayer
             get { return Users; }
         }
 
-        void IDataContext.SaveChanges()
-        {
+        void IDataContext.SaveChanges() {
             SaveChanges();
         }
 
-        void IDataContext.AddUser(User user)
-        {
+        void IDataContext.AddUser(User user) {
             Users.Add(user);
         }
 
-        void IDataContext.DeleteUser(User user)
-        {
+        void IDataContext.DeleteUser(User user) {
             if (user.Address != null) {
-                Addresses.Remove(user.Address);    
+                Addresses.Remove(user.Address);
             }
             Users.Remove(user);
         }
 
-        void IDataContext.UpdateUser(User user)
-        {
+        void IDataContext.UpdateUser(User user) {
             Attach(user);
             Attach(user.Address);
         }
 
-        void IDataContext.CreateRequest(Request request)
-        {
+        void IDataContext.CreateRequest(Request request) {
             Users.Attach(request.Author);
             Requests.Add(request);
         }
@@ -67,14 +59,12 @@ namespace View.DataAccessLayer
             Entry(request).Property(_ => _.DateCreated).IsModified = false;
         }
 
-        private void Attach(User user)
-        {
+        private void Attach(User user) {
             Users.Attach(user);
             Entry(user).State = EntityState.Modified;
         }
 
-        private void Attach(Address address)
-        {
+        private void Attach(Address address) {
             Addresses.Attach(address);
             Entry(address).State = EntityState.Modified;
         }
