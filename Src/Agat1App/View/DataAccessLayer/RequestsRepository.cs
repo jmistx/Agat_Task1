@@ -24,5 +24,13 @@ namespace View.DataAccessLayer {
                 dataContext.SaveChanges();
             }
         }
+
+        public void Delete(int id) {
+            using (var dataContext = _dataContextFactory.Create()) {
+                var request = dataContext.Requests.Single(_ => _.Id == id);
+                dataContext.DeleteRequest(request);
+                dataContext.SaveChanges();
+            }
+        }
     }
 }

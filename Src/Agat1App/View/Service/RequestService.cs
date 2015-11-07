@@ -10,6 +10,7 @@ namespace View.Service {
         IList<RequestViewModel> GetAll();
         RequestCreateViewModel CreateRequest();
         void CreateRequest(RequestCreateViewModel vm);
+        void DeleteRequest(int id);
     }
 
     public class RequestService : IRequestService {
@@ -23,14 +24,14 @@ namespace View.Service {
 
         public IList<RequestViewModel> GetAll() {
             IList<Request> requests = _requestsRepository.GetAll();
-            return requests.Select(toViewModel).ToList();
+            return requests.Select(_toViewModel).ToList();
         }
 
         public RequestCreateViewModel CreateRequest() {
             var users = _userRepository.GetUsers();
 
             return new RequestCreateViewModel() {
-                Users = users.Select(toViewModel).ToList(),
+                Users = users.Select(_toViewModel).ToList(),
                 Author = new AuthorViewModel()
             };
         }
@@ -39,6 +40,10 @@ namespace View.Service {
             var request = _toModel(vm);
             request.DateCreated = DateTime.UtcNow;
             _requestsRepository.Save(request);
+        }
+
+        public void DeleteRequest(int id) {
+            _requestsRepository.Delete(id);
         }
 
         private Request _toModel(RequestCreateViewModel vm) {
@@ -52,15 +57,16 @@ namespace View.Service {
 
         }
 
-        private RequestViewModel toViewModel(Request request)
+        private RequestViewModel _toViewModel(Request request)
         {
             return new RequestViewModel {
-                Author = toViewModel(request.Author),
+                Id = request.Id,
+                Author = _toViewModel(request.Author),
                 DateCreated = request.DateCreated.ToString("g")
             };
         }
 
-        private AuthorViewModel toViewModel(User user)
+        private AuthorViewModel _toViewModel(User user)
         {
             return new AuthorViewModel
             {

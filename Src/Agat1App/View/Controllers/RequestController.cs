@@ -32,12 +32,9 @@ namespace View.Controllers {
             throw new NotImplementedException();
         }
 
-        public ActionResult Details(int id) {
-            throw new NotImplementedException();
-        }
-
         public ActionResult Delete(int id) {
-            throw new NotImplementedException();
+            service.DeleteRequest(id);
+            return RedirectToAction("Index");
         }
     }
 }
