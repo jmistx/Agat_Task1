@@ -10,5 +10,6 @@ namespace View.DataAccessLayer {
         void SaveChanges();
         void DeleteUser(User user);
         void UpdateUser(User user);
+        void CreateRequest(Request request);
     }
 }

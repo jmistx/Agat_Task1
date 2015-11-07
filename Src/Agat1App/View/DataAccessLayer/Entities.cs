@@ -14,12 +14,13 @@ namespace View.DataAccessLayer
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Request> Requests { get; set; }
+
         IQueryable<Request> IDataContext.Requests {
             get { return Requests; }
         }
-
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Request> Requests { get; set; }
 
         IQueryable<User> IDataContext.Users {
             get { return Users; }
@@ -47,6 +48,12 @@ namespace View.DataAccessLayer
         {
             Attach(user);
             Attach(user.Address);
+        }
+
+        void IDataContext.CreateRequest(Request request)
+        {
+            Users.Attach(request.Author);
+            Requests.Add(request);
         }
 
         private void Attach(User user)
@@ -77,9 +84,9 @@ namespace View.DataAccessLayer
 
             modelBuilder.Entity<Request>()
                 .HasKey(_ => _.Id)
-                .Ignore(_ => _.Author)
-                .Ignore(_ => _.DateCreate)
-                .Ignore(_ => _.Description);
+                .HasRequired(_ => _.Author)
+                .WithMany(_ => _.Requests)
+                .Map(_ => _.MapKey("Author"));
         }
     }
 }

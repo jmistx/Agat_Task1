@@ -16,5 +16,12 @@ namespace View.DataAccessLayer {
                 return dataContext.Requests.ToList();
             }
         }
+
+        public void Save(Request request) {
+            using (var dataContext = _dataContextFactory.Create()) {
+                dataContext.CreateRequest(request);
+                dataContext.SaveChanges();
+            }
+        }
     }
 }

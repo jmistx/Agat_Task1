@@ -9,14 +9,23 @@ namespace View.Controllers {
         private readonly IRequestService service;
 
         public RequestController() {
-            service = new RequestService(new RequestsRepository(new DataContextFactory()));
+            var dataContextFactory = new DataContextFactory();
+            service = new RequestService(new RequestsRepository(dataContextFactory), new UserRepository(dataContextFactory));
         }
+
         public ActionResult Index() {
             return View(service.GetAll());
         }
 
         public ActionResult Create() {
-            throw new NotImplementedException();
+            var requestViewModel = service.CreateRequest();
+            return View(requestViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateRequestViewModel vm) {
+            service.CreateRequest(vm);  
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id) {
